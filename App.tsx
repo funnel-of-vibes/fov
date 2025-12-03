@@ -23,6 +23,7 @@ const HARDCODED_APPS: AppEntry[] = [
         author: 'The_Master_Viber',
         likes: 0,
         vibeScore: 99,
+        contributors: 1,
         description: 'Choose your future job',
         timestamp: Date.now() - 10000000,
         stage: 'vibe'
@@ -51,27 +52,16 @@ const HARDCODED_APPS: AppEntry[] = [
     },
     // Building Stage
     {
-        id: '4',
-        name: 'DevFlow Pro',
-        link: '#',
-        author: 'Builder_Bob',
-        likes: 156,
-        contributors: 12,
-        vibeScore: 82,
-        description: 'Seamless CI/CD pipelines for vibe-based coding.',
-        timestamp: Date.now() - 8000000,
-        stage: 'building'
-    },
-    {
-        id: '5',
-        name: 'React Gen',
-        link: '#',
-        author: 'Frontend_Wizard',
-        likes: 234,
-        contributors: 8,
-        vibeScore: 89,
-        description: 'Generative UI components that adapt to user mood.',
-        timestamp: Date.now() - 4000000,
+        id: '9',
+        name: 'Funnel of Vibes',
+        link: 'https://agenticus.eu',
+        author: 'Community',
+        likes: 1,
+        userCount: 1,
+        contributors: 1,
+        vibeScore: 100,
+        description: 'Building the future of software together',
+        timestamp: Date.now() - 10000000,
         stage: 'building'
     },
     // Scaling Stage
@@ -408,9 +398,18 @@ const App: React.FC = () => {
                                                 href={app.link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="sm:opacity-0 group-hover:opacity-100 px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-xs font-medium transition-all"
+                                                className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-xs font-medium transition-all"
                                             >
                                                 Visit
+                                            </a>
+                                            <a
+                                                href="https://github.com/funnel-of-vibes/fov"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-xs font-medium transition-all"
+                                                aria-label={`View source code for ${app.name}`}
+                                            >
+                                                Source
                                             </a>
                                         </div>
 
