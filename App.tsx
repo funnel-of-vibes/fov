@@ -275,7 +275,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen pb-20">
+        <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans selection:bg-pink-500/30 pb-20">
 
             <div className="container mx-auto px-4 py-6 max-w-5xl">
 
@@ -284,10 +284,10 @@ const App: React.FC = () => {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div
                             className="pr-20 sm:pr-0"> {/* Add padding right on mobile to avoid overlap with funnel icon */}
-                            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+                            <h1 className="text-2xl font-bold text-white tracking-tight">
                                 Funnel of Vibes
                             </h1>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-slate-400">
                                 Vibers Community
                             </p>
                         </div>
@@ -313,15 +313,15 @@ const App: React.FC = () => {
                     <FunnelVisualization currentStage={activeTab}/>
 
                     {/* Top Menu Tabs */}
-                    <nav className="flex space-x-1 rounded-xl bg-white/60 backdrop-blur border border-white/50 p-1 mb-4 w-full md:w-fit">
+                    <nav className="flex space-x-1 rounded-xl bg-slate-800/50 backdrop-blur border border-slate-700/50 p-1 mb-4 w-full md:w-fit">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`w-full md:w-auto rounded-lg px-4 py-2 text-sm font-medium leading-5 transition-all
                   ${activeTab === tab.id
-                                    ? 'bg-white/80 text-slate-900 shadow'
-                                    : 'text-slate-700 hover:bg-white/50 hover:text-slate-900'
+                                    ? 'bg-slate-800 text-white shadow'
+                                    : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'
                                 }`}
                             >
                                 {tab.label}
@@ -331,9 +331,9 @@ const App: React.FC = () => {
 
                     {/* Skills Section */}
                     <div
-                        className="mb-6 glass-card p-3 inline-flex items-center gap-3">
-                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Skills:</span>
-                        <span className="text-sm font-medium text-slate-800">{stageSkills[activeTab]}</span>
+                        className="mb-6 rounded-xl bg-slate-800/50 border border-slate-700/50 p-3 inline-flex items-center gap-3">
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Skills:</span>
+                        <span className="text-sm font-medium text-slate-200">{stageSkills[activeTab]}</span>
                     </div>
                 </header>
 
@@ -341,7 +341,7 @@ const App: React.FC = () => {
                 <div className="space-y-3">
                     {sortedApps.length === 0 ? (
                         <div
-                            className="text-center py-12 text-slate-600 glass-card rounded-lg border border-dashed border-white/60">
+                            className="text-center py-12 text-slate-400 rounded-lg border border-dashed border-slate-700/60 bg-slate-800/30">
                             No apps in this stage yet.
                         </div>
                     ) : (
@@ -350,7 +350,7 @@ const App: React.FC = () => {
                             return (
                                 <div
                                     key={app.id}
-                                    className="group glass-card p-3 sm:p-4 hover:shadow-md transition-shadow"
+                                    className="group rounded-xl bg-slate-800/50 border border-slate-700/50 p-3 sm:p-4 hover:shadow-2xl hover:shadow-purple-500/10 transition-shadow"
                                 >
                                     <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
 
@@ -358,30 +358,30 @@ const App: React.FC = () => {
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-1">
                                                 <span
-                                                    className="text-gray-400 font-mono text-xs w-5 flex-shrink-0">#{index + 1}</span>
-                                                <h3 className="text-base font-bold text-slate-900 truncate">
+                                                    className="text-slate-500 font-mono text-xs w-5 flex-shrink-0">#{index + 1}</span>
+                                                <h3 className="text-base font-bold text-slate-100 truncate">
                                                     <a href={app.link} target="_blank" rel="noopener noreferrer"
-                                                       className="hover:text-fuchsia-600 transition-colors">
+                                                       className="hover:text-pink-300 transition-colors">
                                                         {app.name}
                                                     </a>
                                                 </h3>
                                                 {/* Vibe Badge */}
                                                 <span
                                                     className={`px-1.5 py-0.5 text-[10px] font-semibold rounded uppercase tracking-wide flex-shrink-0 ${
-                                                        app.vibeScore >= 90 ? 'bg-green-100 text-green-800' :
-                                                            app.vibeScore >= 70 ? 'bg-blue-100 text-blue-800' :
-                                                                'bg-gray-100 text-gray-800'
+                                                        app.vibeScore >= 90 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' :
+                                                            app.vibeScore >= 70 ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' :
+                                                                'bg-slate-700/50 text-slate-300 border border-slate-600/50'
                                                     }`}>
                             {app.vibeScore} Vibe
                           </span>
                                             </div>
 
-                                            <p className="text-xs text-slate-700 truncate mb-1.5">
+                                            <p className="text-xs text-slate-300 truncate mb-1.5">
                                                 {app.description}
                                             </p>
 
-                                            <div className="flex items-center gap-3 text-[10px] text-slate-400">
-                                                <span className="font-medium text-slate-600">{app.author}</span>
+                                            <div className="flex items-center gap-3 text-[10px] text-slate-500">
+                                                <span className="font-medium text-slate-300">{app.author}</span>
                                                 <span>•</span>
                                                 <span>{new Date(app.timestamp).toLocaleDateString()}</span>
                                             </div>
@@ -391,15 +391,15 @@ const App: React.FC = () => {
                                         <div className="flex items-center gap-3 mt-2 sm:mt-0 pl-7 sm:pl-0">
                                             <button
                                                 onClick={() => toggleLike(app.id)}
-                                                className={`flex items-center gap-1.5 group/btn px-2 py-1 rounded hover:bg-gray-50 transition-colors ${
-                                                    activeTab === 'vibe' && metricValue > 0 ? 'text-red-500' :
-                                                        activeTab === 'building' ? 'text-blue-600' :
-                                                            activeTab === 'scaling' ? 'text-green-600' : 'text-gray-400'
+                                                className={`flex items-center gap-1.5 group/btn px-2 py-1 rounded hover:bg-slate-800 transition-colors ${
+                                                    activeTab === 'vibe' && metricValue > 0 ? 'text-pink-400' :
+                                                        activeTab === 'building' ? 'text-blue-400' :
+                                                            activeTab === 'scaling' ? 'text-green-400' : 'text-slate-400'
                                                 }`}
                                             >
                                                 {getStageIcon(activeTab)}
                                                 <span
-                                                    className="text-xs font-semibold text-gray-700 min-w-[2rem] text-right">
+                                                    className="text-xs font-semibold text-slate-200 min-w-[2rem] text-right">
                                {metricValue.toLocaleString()}
                              </span>
                                             </button>
@@ -408,7 +408,7 @@ const App: React.FC = () => {
                                                 href={app.link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="px-3 py-1 bg-white/70 hover:bg-white text-slate-700 rounded text-xs font-medium transition-all"
+                                                className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs font-medium transition-all border border-slate-700"
                                             >
                                                 Visit
                                             </a>
@@ -416,7 +416,7 @@ const App: React.FC = () => {
                                                 href="https://github.com/funnel-of-vibes/fov"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="px-3 py-1 bg-white/70 hover:bg-white text-slate-700 rounded text-xs font-medium transition-all"
+                                                className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs font-medium transition-all border border-slate-700"
                                                 aria-label={`View source code for ${app.name}`}
                                             >
                                                 Source
@@ -431,7 +431,7 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Footer */}
-                <footer className="mt-12 text-center text-gray-400 text-xs">
+                <footer className="mt-12 text-center text-slate-600 text-xs">
                     <p>© 2025 FunnelOfVibes. All rights reserved.</p>
                 </footer>
 
@@ -442,6 +442,30 @@ const App: React.FC = () => {
                 onClose={() => setIsModalOpen(false)}
                 onAdd={handleAddApp}
             />
+            {/* Global CSS for custom animations */}
+            <style>{`
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slide-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scale-in {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes spin-reverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+        .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+        .animate-slide-up { animation: slide-up 0.5s ease-out forwards; }
+        .animate-scale-in { animation: scale-in 0.4s ease-out forwards; }
+        .animate-spin-reverse { animation: spin-reverse 1.5s linear infinite; }
+        .animate-bounce-slow { animation: bounce 3s infinite; }
+      `}</style>
         </div>
     );
 };
