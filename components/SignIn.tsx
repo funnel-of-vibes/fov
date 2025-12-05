@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-fuchsia-100 via-rose-100 to-sky-100">
+    <div className="min-h-screen w-full">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
         <div className="grid grid-cols-1 gap-6 items-stretch">
           {/* Info / Marketing Panel */}

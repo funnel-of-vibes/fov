@@ -2,10 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --vibe-bg-from: #fae8ff; /* fuchsia-100 */
-  --vibe-bg-via: #ffe4e6; /* rose-100 */
+  /* Light theme background now uses hues of light blue */
+  --vibe-bg-from: #eff6ff; /* blue-50 */
+  --vibe-bg-via: #dbeafe; /* blue-100 */
   --vibe-bg-to:   #e0f2fe; /* sky-100 */
 
+  --vibe-primary: #d946ef; /* fuchsia-500 */
+  --vibe-secondary: #0ea5e9; /* sky-500 */
+  --vibe-ink: #0f172a; /* slate-900 */
+}
+
+/* Light theme variables (correct selector) */
+:root {
+  --vibe-bg-from: #eff6ff; /* blue-50 */
+  --vibe-bg-via: #dbeafe; /* blue-100 */
+  --vibe-bg-to:   #e0f2fe; /* sky-100 */
   --vibe-primary: #d946ef; /* fuchsia-500 */
   --vibe-secondary: #0ea5e9; /* sky-500 */
   --vibe-ink: #0f172a; /* slate-900 */

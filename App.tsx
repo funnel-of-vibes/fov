@@ -11,7 +11,7 @@ const HARDCODED_APPS: AppEntry[] = [
         name: 'Homo Agenticus',
         link: 'http://homo.agenticus.eu',
         author: 'The_Architect',
-        likes: 2,
+        likes: 17,
         vibeScore: 99,
         description: 'Autonomous agentic humans who make informed decisions',
         timestamp: Date.now() - 10000000,
@@ -22,7 +22,7 @@ const HARDCODED_APPS: AppEntry[] = [
         name: 'Vibes 4 Humanity',
         link: 'http://vibes4humanity.agenticus.eu',
         author: 'The_Master_Viber',
-        likes: 1,
+        likes: 5,
         vibeScore: 99,
         contributors: 1,
         description: 'Choose your future job',
@@ -34,7 +34,7 @@ const HARDCODED_APPS: AppEntry[] = [
         name: 'Sapiens Goal Tracker',
         link: 'http://sapiensgoaltracker.agenticus.eu',
         author: 'Chronos_Surfer',
-        likes: 0,
+        likes: 1,
         vibeScore: 95,
         description: 'Goal tracker app to support realistic evolution of navigating through life',
         timestamp: Date.now() - 5000000,
@@ -343,7 +343,12 @@ const App: React.FC = () => {
                                     <path d="M2 12h20"></path>
                                 </svg>
                                 <button
-                                    className={`px-2 py-1 rounded text-xs border bg-white text-slate-800 border-slate-300`}
+                                    className={[
+                                        'relative px-3 py-2 font-medium rounded-full transition-all duration-200',
+                                        'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                                        'text-slate-600 bg-white/80 border border-slate-200 hover:bg-white shadow-sm hover:shadow',
+                                        'text-sm'
+                                    ].join(' ')}
                                     onClick={() => setLang(lang === 'en' ? 'ro' : 'en')}
                                     title={t('header.language')}
                                 >
@@ -353,7 +358,13 @@ const App: React.FC = () => {
                             {/* Theme toggle */}
                             <button
                                 onClick={toggleTheme}
-                                className="theme-toggle px-2 py-1 rounded text-xs border bg-white text-slate-800 border-slate-300"
+                                className={[
+                                    'theme-toggle',
+                                    'relative px-3 py-2 font-medium rounded-full transition-all duration-200',
+                                    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                                    'text-slate-600 bg-white/80 border border-slate-200 hover:bg-white shadow-sm hover:shadow',
+                                    'text-sm'
+                                ].join(' ')}
                                 title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
                                 aria-label="Toggle theme"
                             >
