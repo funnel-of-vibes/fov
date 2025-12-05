@@ -223,6 +223,7 @@ const App: React.FC = () => {
             // Clear local auth markers
             localStorage.removeItem('auth.google');
             localStorage.removeItem('auth.google.credential');
+            localStorage.removeItem('auth.anonymous');
         } finally {
             // Notify the app to return to the sign-in screen
             window.dispatchEvent(new Event('google:logout'));

@@ -28,9 +28,50 @@ const Section: React.FC<{
   );
 };
 
+// Detect common in-app browsers / webviews using UA heuristics
+function isInAppBrowser() {
+  try {
+    const ua = (navigator.userAgent || (navigator as any).vendor || (window as any).opera || '').toString();
+    const inAppRules = [
+      'WebView', // Generic
+      '(iPhone|iPod|iPad)(?!.*Safari\/)', // iOS WebView (no "Safari/" token)
+      'Android.*(wv|\.0\.0\.0)', // Android WebView (older or newer "wv")
+      'Linux; U; Android', // Old Android WebView
+
+      // Social & Messaging Apps
+      'FB_IAB', 'FBAN', 'FBAV', // Facebook
+      'Instagram',
+      'LinkedInApp',
+      'Musical_ly', 'TikTok', // TikTok
+      'Snapchat',
+      'Pinterest',
+      'Twitter',
+      'Line',
+      'WeChat', 'MicroMessenger',
+      'Slack',
+      'Discord'
+    ];
+
+    const rulesRegex = new RegExp(`(${inAppRules.join('|')})`, 'ig');
+    const isInAppUA = Boolean(ua.match(rulesRegex));
+    return isInAppUA;
+  } catch {
+    return false;
+  }
+}
+
 const SignIn: React.FC = () => {
   const { t } = useI18n();
   const [error, setError] = useState<string | null>(null);
+  // Use the provided PNG asset for the anonymous button icon
+  const anonIcon = new URL('./icons/anonymous.png', import.meta.url).href;
+  const [isInApp, setIsInApp] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    const inAppBrowser = isInAppBrowser()
+    console.log("inAppBrowser = " + inAppBrowser)
+    setIsInApp(isInApp);
+  }, []);
 
   const handleSuccess = (cred: CredentialResponse) => {
     try {
@@ -162,8 +203,40 @@ const SignIn: React.FC = () => {
               <h2 className="text-2xl font-bold mb-1 text-slate-900">{t('signin.title')}</h2>
               <p className="text-slate-600 mb-6">{t('signin.subtitle')}</p>
 
-              <div className="flex justify-center">
-                <GoogleLogin onSuccess={handleSuccess} onError={handleError} useOneTap />
+              <div className="flex justify-center items-center gap-3 flex-wrap">
+                {isInApp ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // Try to open the same URL in the default browser (works for many in-app browsers)
+                      try {
+                        window.open(window.location.href, '_blank');
+                      } catch {}
+                    }}
+                    className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
+                    style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+                  >
+                    {t('signin.openInBrowser')}
+                  </button>
+                ) : (
+                  <GoogleLogin onSuccess={handleSuccess} onError={handleError} useOneTap />
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    try {
+                      // Mark session as anonymously authenticated
+                      localStorage.setItem('auth.anonymous', 'true');
+                    } catch {}
+                    // Reuse the same app-wide event to enter the app without Google
+                    window.dispatchEvent(new Event('google:login_success'));
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
+                  style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+                >
+                  <img src={anonIcon} alt="" className="w-5 h-5" aria-hidden />
+                  {t('signin.anon')}
+                </button>
               </div>
 
               {error && (

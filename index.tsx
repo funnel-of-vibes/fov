@@ -17,7 +17,9 @@ const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undef
 function AuthGate() {
   const [isAuthed, setIsAuthed] = useState<boolean>(() => {
     try {
-      return localStorage.getItem('auth.google') === 'true';
+      const google = localStorage.getItem('auth.google') === 'true';
+      const anon = localStorage.getItem('auth.anonymous') === 'true';
+      return google || anon;
     } catch {
       return false;
     }
