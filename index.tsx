@@ -28,6 +28,13 @@ function AuthGate() {
     return () => window.removeEventListener('google:login_success', onLogin as EventListener);
   }, []);
 
+  // Listen for logout events triggered from the app header
+  useEffect(() => {
+    const onLogout = () => setIsAuthed(false);
+    window.addEventListener('google:logout', onLogout as EventListener);
+    return () => window.removeEventListener('google:logout', onLogout as EventListener);
+  }, []);
+
   if (!isAuthed) {
     return <SignIn />;
   }

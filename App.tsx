@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { googleLogout } from '@react-oauth/google';
 import {AppEntry, AppStage} from './types';
 import AddAppModal from './components/AddAppModal';
 
@@ -188,6 +189,21 @@ const App: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<AppStage>('vibe');
 
+    const handleSignOut = () => {
+        try {
+            // Sign out from Google (best-effort)
+            try {
+                googleLogout();
+            } catch {}
+            // Clear local auth markers
+            localStorage.removeItem('auth.google');
+            localStorage.removeItem('auth.google.credential');
+        } finally {
+            // Notify the app to return to the sign-in screen
+            window.dispatchEvent(new Event('google:logout'));
+        }
+    };
+
     const filteredApps = apps.filter(app => app.stage === activeTab);
 
     // Helper to get metric value based on stage
@@ -237,7 +253,7 @@ const App: React.FC = () => {
     ];
 
     const stageSkills: Record<AppStage, string> = {
-        vibe: "English",
+        vibe: "Mother tongue",
         building: "Frontend, Backend, DB",
         scaling: "Old School Software Development, but a lost faster and cheaper"
     };
@@ -291,7 +307,20 @@ const App: React.FC = () => {
                                 Vibers Community
                             </p>
                         </div>
-                        <div>
+                        <div className="flex items-center gap-2 justify-end">
+                            {/* Sign Out button placed to the left of Submit */}
+                            <button
+                                onClick={handleSignOut}
+                                className={[
+                                    'relative px-3 py-2 font-medium rounded-full transition-all duration-200',
+                                    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                                    'text-slate-600 bg-white/80 border border-slate-200 hover:bg-white shadow-sm hover:shadow',
+                                    'text-sm'
+                                ].join(' ')}
+                                title="Sign out"
+                            >
+                                Sign out
+                            </button>
                             <button
                                 onClick={() => setIsModalOpen(true)}
                                 className={
