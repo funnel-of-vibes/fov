@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import { CredentialResponse } from '@react-oauth/google';
 import { useI18n } from '../services/i18n';
 
 const Section: React.FC<{
@@ -28,50 +28,14 @@ const Section: React.FC<{
   );
 };
 
-// Detect common in-app browsers / webviews using UA heuristics
-function isInAppBrowser() {
-  try {
-    const ua = (navigator.userAgent || (navigator as any).vendor || (window as any).opera || '').toString();
-    const inAppRules = [
-      'WebView', // Generic
-      '(iPhone|iPod|iPad)(?!.*Safari\/)', // iOS WebView (no "Safari/" token)
-      'Android.*(wv|\.0\.0\.0)', // Android WebView (older or newer "wv")
-      'Linux; U; Android', // Old Android WebView
-
-      // Social & Messaging Apps
-      'FB_IAB', 'FBAN', 'FBAV', // Facebook
-      'Instagram',
-      'LinkedInApp',
-      'Musical_ly', 'TikTok', // TikTok
-      'Snapchat',
-      'Pinterest',
-      'Twitter',
-      'Line',
-      'WeChat', 'MicroMessenger',
-      'Slack',
-      'Discord'
-    ];
-
-    const rulesRegex = new RegExp(`(${inAppRules.join('|')})`, 'ig');
-    const isInAppUA = Boolean(ua.match(rulesRegex));
-    return isInAppUA;
-  } catch {
-    return false;
-  }
-}
+// In-app browser detection removed since Google sign-in is disabled for now
 
 const SignIn: React.FC = () => {
   const { t } = useI18n();
   const [error, setError] = useState<string | null>(null);
   // Use the provided PNG asset for the anonymous button icon
   const anonIcon = new URL('./icons/anonymous.png', import.meta.url).href;
-  const [isInApp, setIsInApp] = useState<boolean>(false);
-
-  React.useEffect(() => {
-    const inAppBrowser = isInAppBrowser()
-    console.log("inAppBrowser = " + inAppBrowser)
-    setIsInApp(isInApp);
-  }, []);
+  // Google sign-in temporarily disabled; in-app browser handling not needed
 
   const handleSuccess = (cred: CredentialResponse) => {
     try {
@@ -159,7 +123,61 @@ const SignIn: React.FC = () => {
             </div>
           </div>
 
-          {/* Examples of Vibe Apps - placed above the Sign-in Card */}
+          {/* Sign-in Card (Enter the funnel) - now 2nd section */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
+            <div className="relative">
+              <h2 className="text-2xl font-bold mb-1 text-slate-900">{t('signin.title')}</h2>
+              <p className="text-slate-600 mb-6">{t('signin.subtitle')}</p>
+
+              <div className="flex justify-center items-center gap-3 flex-wrap">
+                {/* Vibe anonymously FIRST */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    try {
+                      // Mark session as anonymously authenticated
+                      localStorage.setItem('auth.anonymous', 'true');
+                    } catch {}
+                    // Reuse the same app-wide event to enter the app without Google
+                    window.dispatchEvent(new Event('google:login_success'));
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
+                  style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+                >
+                  <img src={anonIcon} alt="" className="w-5 h-5" aria-hidden />
+                  {t('signin.anon')}
+                </button>
+
+                {/* Disabled Google sign-in (component disabled and moved after anon) */}
+                <button
+                  type="button"
+                  aria-disabled="true"
+                  disabled
+                  title="Disabled for now"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white/70 px-4 py-2 text-sm font-medium text-slate-400 shadow-sm cursor-not-allowed"
+                  style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+                >
+                  {/* Using a simple G icon placeholder */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5" aria-hidden>
+                    <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.6 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.3-.4-3.5z"/>
+                    <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 14.9 18.9 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 16 4 9.1 8.3 6.3 14.7z"/>
+                    <path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.6-5.3l-6.3-5.2C29.3 35.8 26.8 37 24 37c-5.3 0-9.8-3.4-11.4-8.1l-6.5 5C9 39.7 15.9 44 24 44z"/>
+                    <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.2-3.4 5.7-6.7 7.2l6.3 5.2C37.8 38.3 40 33.6 40 28c0-1.2-.1-2.3-.4-3.5z"/>
+                  </svg>
+                  Sign in with Google
+                </button>
+              </div>
+
+              {error && (
+                <p className="text-red-600 text-sm mt-4" role="alert">
+                  {error}
+                </p>
+              )}
+
+            </div>
+          </div>
+
+          {/* Examples of Vibe Apps - now 3rd section */}
           <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
             <div className="relative">
               <h2 className="text-xl font-bold text-slate-900">{t('signin.examples.title')}</h2>
@@ -194,60 +212,6 @@ const SignIn: React.FC = () => {
                   </a>
                 </li>
               </ul>
-            </div>
-          </div>
-
-          {/* Sign-in Card */}
-          <div className="flex items-center">
-            <div className="w-full rounded-2xl bg-white shadow-md border border-slate-200 p-6 sm:p-8">
-              <h2 className="text-2xl font-bold mb-1 text-slate-900">{t('signin.title')}</h2>
-              <p className="text-slate-600 mb-6">{t('signin.subtitle')}</p>
-
-              <div className="flex justify-center items-center gap-3 flex-wrap">
-                {isInApp ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      // Try to open the same URL in the default browser (works for many in-app browsers)
-                      try {
-                        window.open(window.location.href, '_blank');
-                      } catch {}
-                    }}
-                    className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
-                    style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
-                  >
-                    {t('signin.openInBrowser')}
-                  </button>
-                ) : (
-                  <GoogleLogin onSuccess={handleSuccess} onError={handleError} useOneTap />
-                )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    try {
-                      // Mark session as anonymously authenticated
-                      localStorage.setItem('auth.anonymous', 'true');
-                    } catch {}
-                    // Reuse the same app-wide event to enter the app without Google
-                    window.dispatchEvent(new Event('google:login_success'));
-                  }}
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
-                  style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
-                >
-                  <img src={anonIcon} alt="" className="w-5 h-5" aria-hidden />
-                  {t('signin.anon')}
-                </button>
-              </div>
-
-              {error && (
-                <p className="text-red-600 text-sm mt-4" role="alert">
-                  {error}
-                </p>
-              )}
-
-              <div className="mt-6 text-xs text-slate-500">
-                <p><b>{t('signin.disclaimer')}</b> {t('signin.disclaimer_text')}</p>
-              </div>
             </div>
           </div>
         </div>
