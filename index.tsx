@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import SignIn from './components/SignIn';
+import { LanguageProvider } from './services/i18n';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -44,8 +45,10 @@ function AuthGate() {
 
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID || ''}>
-      <AuthGate />
-    </GoogleOAuthProvider>
+    <LanguageProvider>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID || ''}>
+        <AuthGate />
+      </GoogleOAuthProvider>
+    </LanguageProvider>
   </React.StrictMode>
 );

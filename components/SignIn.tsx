@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import { useI18n } from '../services/i18n';
 
 const Section: React.FC<{
   title: string;
   children: React.ReactNode;
   defaultOpen?: boolean;
 }> = ({ title, children, defaultOpen = false }) => {
+  const { t } = useI18n();
   const [open, setOpen] = useState<boolean>(defaultOpen);
   return (
     <div className="mb-3">
@@ -15,7 +17,7 @@ const Section: React.FC<{
         onClick={() => setOpen(o => !o)}
       >
         <span className="font-semibold text-slate-800">{title}</span>
-        <span className="text-slate-500 text-sm">{open ? 'Hide' : 'Show'}</span>
+        <span className="text-slate-500 text-sm">{open ? t('section.hide') : t('section.show')}</span>
       </button>
       {open && (
         <div className="mt-2 text-sm leading-relaxed text-slate-700 bg-white/60 rounded-lg px-4 py-3 border border-white/40 shadow-sm">
@@ -27,6 +29,7 @@ const Section: React.FC<{
 };
 
 const SignIn: React.FC = () => {
+  const { t } = useI18n();
   const [error, setError] = useState<string | null>(null);
 
   const handleSuccess = (cred: CredentialResponse) => {
@@ -45,7 +48,7 @@ const SignIn: React.FC = () => {
   };
 
   const handleError = () => {
-    setError('Google Sign-In failed. Please try again.');
+    setError(t('signin.error'));
   };
 
   return (
@@ -61,53 +64,53 @@ const SignIn: React.FC = () => {
             <div className="relative">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-white/60 px-3 py-1 text-xs text-slate-600 shadow-sm">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                Open community experiment
+                {t('signin.badge')}
               </div>
-              <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Funnel of Vibes</h1>
+              <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">{t('app.title')}</h1>
               <p className="mt-2 text-slate-700 text-base sm:text-lg">
-                A place used to turn simple vibes into real software which improves the lives of humans.
+                {t('signin.marketing')}
               </p>
 
               <div className="mt-6">
-                <Section title="Glossary of terms">
+                <Section title={t('section.glossary')}>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>
-                      <b>Viber</b> — idealistic human of the sapiens species manifesting some vibes directed to helping fellow humans. The viber does not need to manifest any software development skills. The viber believes that crafting and using software should be basically free of charge. The viber understands that maintaining the software may however incur some costs.
+                      {t('glossary.viber')}
                     </li>
                     <li>
-                      <b>Funnel of vibes</b> — a platform intended for the viber community. It is about contributing to the journey needed to take the initial vibe all the way to being a real working application.
+                      {t('glossary.funnel')}
                     </li>
                     <li>
-                      <b>GenAI coding assistant</b> — generative AI model capable of generating code based on viber prompts.
+                      {t('glossary.genai')}
                     </li>
                     <li>
-                      <b>Prompt</b> — the request made by the viber to a GenAI model to produce or change source code.
+                      {t('glossary.prompt')}
                     </li>
                     <li>
-                      <b>Builder</b> — Viber with software development skills. Not all vibers are builders, but they can develop the skills to become one.
+                      {t('glossary.builder')}
                     </li>
                     <li>
-                      <b>Scaler</b> — Viber with advanced software development skills. Not all builders are scalers, but they can develop the skills to become one.
+                      {t('glossary.scaler')}
                     </li>
                   </ul>
                 </Section>
 
-                <Section title="How it works">
+                <Section title={t('section.how')}>
                   <ul className="list-decimal pl-5 space-y-2">
                     <li>
-                      A vibe pops up in the brain of the viber. Using the AI code generation tool of choice, the viber prompts the GenAI model to generate a prototype of the application.
+                      {t('how.1')}
                     </li>
                     <li>
-                      The Viber submits the source code to be made available as a web application for the other vibers to assess.
+                      {t('how.2')}
                     </li>
                     <li>
-                      If in a week's time, based on the feedback received from the viber community, the vibe receives enough likes, it is chosen to be taken to the next step, which is the build step.
+                      {t('how.3')}
                     </li>
                     <li>
-                      The builders or just vibers who aspire to be builders, contribute further to bring the initial vibe to life.
+                      {t('how.4')}
                     </li>
                     <li>
-                      Once the vibed app reaches an arbitrary number of users, say 1000, the scalers are invited to contribute.
+                      {t('how.5')}
                     </li>
                   </ul>
                 </Section>
@@ -118,8 +121,8 @@ const SignIn: React.FC = () => {
           {/* Examples of Vibe Apps - placed above the Sign-in Card */}
           <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
             <div className="relative">
-              <h2 className="text-xl font-bold text-slate-900">Examples of vibed apps</h2>
-              <p className="mt-1 text-slate-600 text-sm">Explore a couple of live examples created by vibers:</p>
+              <h2 className="text-xl font-bold text-slate-900">{t('signin.examples.title')}</h2>
+              <p className="mt-1 text-slate-600 text-sm">{t('signin.examples.subtitle')}</p>
               <ul className="mt-4 space-y-3">
                 <li>
                   <a
@@ -156,8 +159,8 @@ const SignIn: React.FC = () => {
           {/* Sign-in Card */}
           <div className="flex items-center">
             <div className="w-full rounded-2xl bg-white shadow-md border border-slate-200 p-6 sm:p-8">
-              <h2 className="text-2xl font-bold mb-1 text-slate-900">Sign in</h2>
-              <p className="text-slate-600 mb-6">Continue to Funnel of Vibes to provide your vibe</p>
+              <h2 className="text-2xl font-bold mb-1 text-slate-900">{t('signin.title')}</h2>
+              <p className="text-slate-600 mb-6">{t('signin.subtitle')}</p>
 
               <div className="flex justify-center">
                 <GoogleLogin onSuccess={handleSuccess} onError={handleError} useOneTap />
@@ -170,7 +173,7 @@ const SignIn: React.FC = () => {
               )}
 
               <div className="mt-6 text-xs text-slate-500">
-                <p><b>Disclaimer:</b> Application intended as a proof of concept.</p>
+                <p><b>{t('signin.disclaimer')}</b> {t('signin.disclaimer_text')}</p>
               </div>
             </div>
           </div>
@@ -178,7 +181,7 @@ const SignIn: React.FC = () => {
       </div>
       {/* Footer */}
       <footer className="py-6 text-center text-gray-500 text-xs">
-        <p>© 2025 FunnelOfVibes. All rights reserved.</p>
+        <p>{t('footer.copyright')}</p>
       </footer>
     </div>
   );

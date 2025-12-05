@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { googleLogout } from '@react-oauth/google';
 import {AppEntry, AppStage} from './types';
 import AddAppModal from './components/AddAppModal';
+import { useI18n } from './services/i18n';
 
 const HARDCODED_APPS: AppEntry[] = [
     // Vibe Stage
@@ -92,6 +93,7 @@ const HARDCODED_APPS: AppEntry[] = [
 ];
 
 const FunnelVisualization: React.FC<{ currentStage: AppStage }> = ({currentStage}) => {
+    const { t } = useI18n();
     return (
         <>
             {/* Desktop Version */}
@@ -105,7 +107,7 @@ const FunnelVisualization: React.FC<{ currentStage: AppStage }> = ({currentStage
                               strokeWidth="2"/>
                         <text x="135" y="115" textAnchor="middle"
                               className="fill-pink-800 text-sm font-bold uppercase tracking-wider"
-                              style={{fontSize: '14px'}}>Vibe Checking
+                              style={{fontSize: '14px'}}>{t('funnel.vibeChecking')}
                         </text>
                         <g transform="translate(119, 50) scale(1.5)">
                             <path stroke="currentColor" className="text-pink-500" strokeLinecap="round"
@@ -125,7 +127,7 @@ const FunnelVisualization: React.FC<{ currentStage: AppStage }> = ({currentStage
                               strokeWidth="2"/>
                         <text x="125" y="100" textAnchor="middle"
                               className="fill-blue-800 text-sm font-bold uppercase tracking-wider"
-                              style={{fontSize: '14px'}}>Building
+                              style={{fontSize: '14px'}}>{t('funnel.building')}
                         </text>
                         <g transform="translate(109, 45) scale(1.5)">
                             {/* Spanner Wrench Icon */}
@@ -146,7 +148,7 @@ const FunnelVisualization: React.FC<{ currentStage: AppStage }> = ({currentStage
                               strokeWidth="2"/>
                         <text x="110" y="90" textAnchor="middle"
                               className="fill-green-800 text-sm font-bold uppercase tracking-wider"
-                              style={{fontSize: '14px'}}>Scaling
+                              style={{fontSize: '14px'}}>{t('funnel.scaling')}
                         </text>
                         <g transform="translate(94, 40) scale(1.5)">
                             <path stroke="currentColor" className="text-green-500" strokeLinecap="round"
@@ -185,6 +187,7 @@ const FunnelVisualization: React.FC<{ currentStage: AppStage }> = ({currentStage
 };
 
 const App: React.FC = () => {
+    const { t, lang, setLang } = useI18n();
     const [apps, setApps] = useState<AppEntry[]>(HARDCODED_APPS);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<AppStage>('vibe');
@@ -247,9 +250,9 @@ const App: React.FC = () => {
     };
 
     const tabs: { id: AppStage; label: string }[] = [
-        {id: 'vibe', label: 'Vibes'},
-        {id: 'building', label: 'Building'},
-        {id: 'scaling', label: 'Scaling'},
+        {id: 'vibe', label: t('tabs.vibe')},
+        {id: 'building', label: t('tabs.building')},
+        {id: 'scaling', label: t('tabs.scaling')},
     ];
 
     const stageSkills: Record<AppStage, string> = {
@@ -301,13 +304,30 @@ const App: React.FC = () => {
                         <div
                             className="pr-20 sm:pr-0"> {/* Add padding right on mobile to avoid overlap with funnel icon */}
                             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
-                                Funnel of Vibes
+                                {t('app.title')}
                             </h1>
                             <p className="text-sm text-gray-500">
-                                Vibers Community
+                                {t('app.subtitle')}
                             </p>
                         </div>
                         <div className="flex items-center gap-2 justify-end">
+                            {/* Language selector - single toggle button */}
+                            <div className="flex items-center gap-1 mr-2">
+                                <label className="sr-only">{t('header.language')}</label>
+                                {/* Globe icon to the left of the I18n toggle */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe w-4 h-4" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                    <path d="M2 12h20"></path>
+                                </svg>
+                                <button
+                                    className={`px-2 py-1 rounded text-xs border bg-white text-slate-800 border-slate-300`}
+                                    onClick={() => setLang(lang === 'en' ? 'ro' : 'en')}
+                                    title={t('header.language')}
+                                >
+                                    {lang.toUpperCase()}
+                                </button>
+                            </div>
                             {/* Sign Out button placed to the left of Submit */}
                             <button
                                 onClick={handleSignOut}
@@ -317,9 +337,9 @@ const App: React.FC = () => {
                                     'text-slate-600 bg-white/80 border border-slate-200 hover:bg-white shadow-sm hover:shadow',
                                     'text-sm'
                                 ].join(' ')}
-                                title="Sign out"
+                                title={t('header.signout')}
                             >
-                                Sign out
+                                {t('header.signout')}
                             </button>
                             <button
                                 onClick={() => setIsModalOpen(true)}
@@ -333,7 +353,7 @@ const App: React.FC = () => {
                                     ].join(' ')
                                 }
                             >
-                                + Submit Vibe Code
+                                {t('header.submit')}
                             </button>
                         </div>
                     </div>
@@ -361,7 +381,7 @@ const App: React.FC = () => {
                     {/* Skills Section */}
                     <div
                         className="mb-6 glass-card p-3 inline-flex items-center gap-3">
-                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Skills:</span>
+                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">{t('skills.label')}</span>
                         <span className="text-sm font-medium text-slate-800">{stageSkills[activeTab]}</span>
                     </div>
                 </header>
@@ -371,7 +391,7 @@ const App: React.FC = () => {
                     {sortedApps.length === 0 ? (
                         <div
                             className="text-center py-12 text-slate-600 glass-card rounded-lg border border-dashed border-white/60">
-                            No apps in this stage yet.
+                            {t('empty.stage')}
                         </div>
                     ) : (
                         sortedApps.map((app, index) => {
@@ -439,7 +459,7 @@ const App: React.FC = () => {
                                                 rel="noopener noreferrer"
                                                 className="px-3 py-1 bg-white/70 hover:bg-white text-slate-700 rounded text-xs font-medium transition-all"
                                             >
-                                                Visit
+                                                {t('btn.visit')}
                                             </a>
                                             <a
                                                 href="https://github.com/funnel-of-vibes/fov"
@@ -448,7 +468,7 @@ const App: React.FC = () => {
                                                 className="px-3 py-1 bg-white/70 hover:bg-white text-slate-700 rounded text-xs font-medium transition-all"
                                                 aria-label={`View source code for ${app.name}`}
                                             >
-                                                Source
+                                                {t('btn.source')}
                                             </a>
                                         </div>
 
@@ -461,7 +481,7 @@ const App: React.FC = () => {
 
                 {/* Footer */}
                 <footer className="mt-12 text-center text-gray-400 text-xs">
-                    <p>© 2025 FunnelOfVibes. All rights reserved.</p>
+                    <p>{t('footer.copyright')}</p>
                 </footer>
 
             </div>
