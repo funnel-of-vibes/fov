@@ -64,32 +64,8 @@ const HARDCODED_APPS: AppEntry[] = [
         description: 'Building the future of software together',
         timestamp: Date.now() - 10000000,
         stage: 'building'
-    },
-    // Scaling Stage
-    {
-        id: '6',
-        name: 'Global Mesh',
-        link: '#',
-        author: 'Net_Runner',
-        likes: 5600,
-        userCount: 45000,
-        vibeScore: 91,
-        description: 'Planetary scale distinct decentralized internet.',
-        timestamp: Date.now() - 12000000,
-        stage: 'scaling'
-    },
-    {
-        id: '7',
-        name: 'Data Ocean',
-        link: '#',
-        author: 'Deep_Dive',
-        likes: 3400,
-        userCount: 12000,
-        vibeScore: 85,
-        description: 'Infinite storage for the collective consciousness.',
-        timestamp: Date.now() - 9000000,
-        stage: 'scaling'
     }
+    // Scaling Stage
 ];
 
 const FunnelVisualization: React.FC<{ currentStage: AppStage }> = ({currentStage}) => {
