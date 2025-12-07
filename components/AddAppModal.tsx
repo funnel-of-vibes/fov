@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AppEntry } from '../types';
 import { processVibeCheck } from '../services/vibeCheckService';
 
@@ -60,8 +61,9 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
     onClose();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm">
+  // Render the modal in a portal so the overlay covers the entire viewport
+  return createPortal(
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm">
       <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-2xl">
         <h2 className="mb-6 text-xl font-bold text-gray-900">
           Submit Vibe Code
@@ -170,7 +172,8 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
