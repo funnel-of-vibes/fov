@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CredentialResponse } from '@react-oauth/google';
 import { useI18n } from '../services/i18n';
+import AddAppModal from './AddAppModal';
+import { AppEntry } from '../types';
 
 const Section: React.FC<{
   title: string;
@@ -33,6 +35,7 @@ const Section: React.FC<{
 const SignIn: React.FC = () => {
   const { t, tr } = useI18n();
   const [error, setError] = useState<string | null>(null);
+  const [isDeployModalOpen, setIsDeployModalOpen] = useState<boolean>(false);
   // Use the provided PNG asset for the anonymous button icon
   const anonIcon = new URL('./icons/anonymous.png', import.meta.url).href;
   // Google sign-in temporarily disabled; in-app browser handling not needed
@@ -54,6 +57,16 @@ const SignIn: React.FC = () => {
 
   const handleError = () => {
     setError(t('signin.error'));
+  };
+
+  // Handle adding an app from the Deploy Vibe modal.
+  // On the sign-in page we don't manage the main list, so just close the modal.
+  const handleAddFromDeploy = (app: AppEntry) => {
+    try {
+      // Optionally stash for later; kept minimal to avoid side effects
+      // localStorage.setItem('draft.deployVibe', JSON.stringify(app));
+    } catch {}
+    setIsDeployModalOpen(false);
   };
 
   return (
@@ -80,42 +93,45 @@ const SignIn: React.FC = () => {
                 <Section title={t('section.glossary')}>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>
-                      {t('glossary.viber')}
+                      {tr('glossary.viber')}
                     </li>
                     <li>
-                      {t('glossary.funnel')}
+                      {tr('glossary.funnel')}
                     </li>
                     <li>
-                      {t('glossary.genai')}
+                      {tr('glossary.genai')}
                     </li>
                     <li>
-                      {t('glossary.prompt')}
+                      {tr('glossary.prompt')}
                     </li>
                     <li>
-                      {t('glossary.builder')}
+                      {tr('glossary.builder')}
                     </li>
                     <li>
-                      {t('glossary.scaler')}
+                      {tr('glossary.scaler')}
                     </li>
                   </ul>
                 </Section>
 
-                <Section title={t('section.how')}>
+                <Section title={t('section.how')} defaultOpen>
                   <ul className="list-decimal pl-5 space-y-2">
                     <li>
-                      {t('how.1')}
+                      {tr('how.1')}
                     </li>
                     <li>
-                      {t('how.2')}
+                      {tr('how.2')}
                     </li>
                     <li>
-                      {t('how.3')}
+                      {tr('how.3')}
                     </li>
                     <li>
-                      {t('how.4')}
+                      {tr('how.4')}
                     </li>
                     <li>
-                      {t('how.5')}
+                      {tr('how.5')}
+                    </li>
+                    <li>
+                      {tr('how.6')}
                     </li>
                   </ul>
                 </Section>
@@ -130,7 +146,23 @@ const SignIn: React.FC = () => {
               <p className="text-slate-600 mb-6">{t('signin.subtitle')}</p>
 
               <div className="flex justify-center items-center gap-3 flex-wrap">
-                {/* Vibe anonymously FIRST */}
+                {/* Deploy Vibe - to the left of Vibe anonymously */}
+                <button
+                  type="button"
+                  onClick={() => setIsDeployModalOpen(true)}
+                  className={[
+                    'relative px-4 py-2 font-medium rounded-md transition-all duration-200',
+                    'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                    'disabled:opacity-50 disabled:cursor-not-allowed',
+                    'text-white bg-gradient-to-r from-fuchsia-500 to-sky-500 shadow-md hover:shadow-lg focus:ring-fuchsia-400',
+                    'text-sm'
+                  ].join(' ')}
+                  style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+                >
+                  Submit Vibe
+                </button>
+
+                {/* Vibe anonymously */}
                 <button
                   type="button"
                   onClick={() => {
@@ -167,6 +199,13 @@ const SignIn: React.FC = () => {
                   Sign in with Google
                 </button>
               </div>
+
+              {/* Deploy Vibe Modal */}
+              <AddAppModal
+                isOpen={isDeployModalOpen}
+                onClose={() => setIsDeployModalOpen(false)}
+                onAdd={handleAddFromDeploy}
+              />
 
               {error && (
                 <p className="text-red-600 text-sm mt-4" role="alert">

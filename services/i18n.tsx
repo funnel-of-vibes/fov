@@ -24,26 +24,30 @@ const translations: Record<Lang, Dict> = {
     'signin.disclaimer': 'Disclaimer:',
     'signin.disclaimer_text': 'Application intended as a proof of concept.',
     'signin.badge': 'Open community experiment',
-    'signin.marketing': ' Goal is to convert vibed code into real software products. How far we can go <b>without paying a cent</b>?',
-    'signin.anon': 'Vibe anonymously',
+    'signin.marketing': 'Goal is to convert vibed code into real software products. How far we can go <b>without paying a cent</b>?',
+    'signin.anon': 'Vote other vibes',
     'signin.openInBrowser': 'Open in browser for Google sign-in',
     'signin.examples.title': 'Examples of vibed apps',
     'signin.examples.subtitle': 'Explore a couple of live examples created by vibers:',
     'section.glossary': 'Glossary of terms',
     'section.show': 'Show',
     'section.hide': 'Hide',
-    'glossary.viber': 'Viber — idealistic human of the sapiens species manifesting some vibes directed to helping fellow humans. The viber does not need to manifest any software development skills. The viber believes that crafting and using software should be basically free of charge. The viber understands that maintaining the software may however incur some costs.',
-    'glossary.funnel': 'Funnel of vibes — a platform intended for the viber community. It is about contributing to the journey needed to take the initial vibe all the way to being a real working application.',
-    'glossary.genai': 'GenAI coding assistant — generative AI model capable of generating code based on viber prompts.',
-    'glossary.prompt': 'Prompt — the request made by the viber to a GenAI model to produce or change source code.',
-    'glossary.builder': 'Builder — Viber with software development skills. Not all vibers are builders, but they can develop the skills to become one.',
-    'glossary.scaler': 'Scaler — Viber with advanced software development skills. Not all builders are scalers, but they can develop the skills to become one.',
+    'glossary.viber': '<b>Viber</b> — idealistic human manifesting some vibes directed to helping fellow humans.<br>' +
+        'The viber does not need software development skills.<br>' +
+        'The viber believes that crafting and using software should be basically free of charge.<br>' +
+        'The viber understands that maintaining the software may however incur some costs.',
+    'glossary.funnel': '<b>Funnel of vibes</b> — a platform intended for the viber community. It is about contributing to take the initial vibe all the way to being a real working application.',
+    'glossary.genai': '<b>GenAI coding assistant</b> — generative AI model capable of generating code based on viber prompts.',
+    'glossary.prompt': '<b>Prompt</b> — the request made by the viber to a GenAI model to produce or change source code.',
+    'glossary.builder': '<b>Builder</b> — Viber with software development skills. Not all vibers are builders, but they can develop the skills to become one.',
+    'glossary.scaler': '<b>Scaler</b> — Viber with advanced software development skills. Not all builders are scalers, but they can develop the skills to become one.',
     'section.how': 'How it works',
-    'how.1': "A vibe pops up in the brain of the viber. Using the AI code generation tool of choice, the viber prompts the GenAI model to generate a prototype of the application.",
-    'how.2': 'The Viber submits the source code to be made available as a web application for the other vibers to assess.',
-    'how.3': "If in a week's time, based on the feedback received from the viber community, the vibe receives enough likes, it is chosen to be taken to the next step, which is the build step.",
-    'how.4': 'The builders or just vibers who aspire to be builders, contribute further to bring the initial vibe to life.',
-    'how.5': 'Once the vibed app reaches an arbitrary number of users, say 1000, the scalers are invited to contribute.',
+    'how.1': 'Think of a useful representation of data to help humans',
+    'how.2': 'Enter <a href="https://aistudio.google.com">AI Studio</a> from Google',
+    'how.3': 'Enter your prompt and hit build',
+    'how.4': 'Wait a few seconds for the source code to be generated',
+    'how.5': 'In the upper right, click on the "download app" button',
+    'how.6': 'Save the zip file to disk and hit <b>Submit vibe</b> below. This will deploy the app for public access.',
     'funnel.vibeChecking': 'Vibe Checking',
     'funnel.building': 'Building',
     'funnel.scaling': 'Scaling',
@@ -69,25 +73,29 @@ const translations: Record<Lang, Dict> = {
     'signin.disclaimer_text': 'Aplicație destinată ca dovadă de concept.',
     'signin.badge': 'Experiment comunitar deschis',
     'signin.marketing': 'Scopul este de a transforma codul generat din vibes în software util. Cât de departe putem ajunge <b>pe gratis</b>? ',
-    'signin.anon': 'Vibe anonim',
+    'signin.anon': 'Descopera vibe-urile altora',
     'signin.openInBrowser': 'Deschide în browser pentru autentificarea Google',
     'signin.examples.title': 'Exemple de aplicații vibate',
     'signin.examples.subtitle': 'Explorează câteva exemple live create de vibers:',
     'section.glossary': 'Glosar de termeni',
     'section.show': 'Arată',
     'section.hide': 'Ascunde',
-    'glossary.viber': 'Viber — om idealist din specia sapiens care manifestă viburi îndreptate spre a ajuta alți oameni. Viberul nu trebuie să aibă abilități de dezvoltare software. Viberul crede că realizarea și folosirea software-ului ar trebui să fie practic gratuite. Viberul înțelege însă că mentenanța poate implica unele costuri.',
-    'glossary.funnel': 'Funnelul vibelor — o platformă destinată comunității de vibers. Este vorba despre contribuția la drumul necesar pentru a duce vibe-ul inițial până la o aplicație funcțională.',
-    'glossary.genai': 'Asistent de codare GenAI — model de AI generativ capabil să genereze cod pe baza prompturilor viberilor.',
-    'glossary.prompt': 'Prompt — cererea făcută de viber unui model GenAI pentru a produce sau modifica cod sursă.',
-    'glossary.builder': 'Builder — Viber cu abilități de dezvoltare software. Nu toți viberii sunt builderi, dar își pot dezvolta abilitățile pentru a deveni.',
-    'glossary.scaler': 'Scaler — Viber cu abilități avansate de dezvoltare software. Nu toți builderii sunt scaleri, dar își pot dezvolta abilitățile pentru a deveni.',
+    'glossary.viber': '<b>Viber</b> — persoană idealist care manifestă viburi îndreptate spre a ajuta alți oameni.<br>' +
+        'Viberul nu necesită abilități de a scrie cod.<br>' +
+        'Viberul crede că realizarea și folosirea soft-ului nu trebuie să îl coste nimic.<br>' +
+        'Viberul înțelege însă că scalarea și mentenanța poate implica anumite costuri.',
+    'glossary.funnel': '<b>Pâlnia vibe-urilor</b> — o platformă destinată comunității de vibers. Este vorba despre contribuția la drumul necesar pentru a duce vibe-ul inițial până la o aplicație funcțională.',
+    'glossary.genai': '<b>Asistent de codare GenAI</b> — model de AI generativ capabil să genereze cod pe baza prompturilor viberilor.',
+    'glossary.prompt': '<b>Prompt</b> — cererea făcută de viber unui model GenAI pentru a produce sau modifica cod sursă.',
+    'glossary.builder': '<b>Builder</b> — Viber cu abilități de dezvoltare software. Nu toți viberii sunt builderi, dar își pot dezvolta abilitățile pentru a deveni.',
+    'glossary.scaler': '<b>Scaler</b> — Viber cu abilități avansate de dezvoltare software. Nu toți builderii sunt scaleri, dar își pot dezvolta abilitățile pentru a deveni.',
     'section.how': 'Cum funcționează',
-    'how.1': 'Un vibe apare în mintea viberului. Folosind instrumentul preferat de generare de cod cu AI, viberul face un prompt către modelul GenAI pentru a genera un prototip al aplicației.',
-    'how.2': 'Viberul trimite codul sursă pentru a fi disponibil ca aplicație web pentru evaluarea altor vibers.',
-    'how.3': 'Dacă într-o săptămână, pe baza feedbackului primit din partea comunității, vibe-ul primește suficiente aprecieri, este ales să treacă la următorul pas, faza de construire.',
-    'how.4': 'Builderii sau viberii care aspiră să devină builderi contribuie în continuare pentru a aduce la viață vibe-ul inițial.',
-    'how.5': 'După ce aplicația vibată ajunge la un număr arbitrar de utilizatori, să zicem 1000, scalerii sunt invitați să contribuie.',
+    'how.1': 'Gândește-te la o reprezentare a datelor utila pentru oameni',
+    'how.2': 'Intră in <a href="https://aistudio.google.com">AI Studio</a> de la Google',
+    'how.3': 'Introdu promptul tău și apasă build',
+    'how.4': 'Așteaptă câteva secunde să se genereze codul sursă',
+    'how.5': 'În colțul din dreapta sus, dă click pe butonul "download app".',
+    'how.6': 'Salvează fișierul zip pe disc și apoi încarcă-l mai jos',
     'funnel.vibeChecking': 'Verificarea viburilor',
     'funnel.building': 'Construire',
     'funnel.scaling': 'Scalare',
@@ -121,37 +129,83 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const setLang = (l: Lang) => setLangState(l);
 
-  // Very small and safe renderer that only allows <b> and <i> tags.
-  // Everything else is treated as plain text. No attributes are supported.
+  // Very small and safe renderer that allows <b>, <i>, <a href>, and <br>.
+  // - Only whitelisted tags are rendered; others become text.
+  // - Only http, https, and mailto schemes are allowed for href.
+  // - target and rel are enforced for safety; other attributes are ignored.
   function renderRich(input: string): React.ReactNode {
-    // Tokenize by tags <b>, </b>, <i>, </i>
-    const tokens = input.split(/(<\/?[bi]>)/g).filter(Boolean);
-    type Node = { type: 'text' | 'b' | 'i'; children?: Node[]; text?: string };
-    const root: Node = { type: 'text', children: [] };
-    const stack: Node[] = [root];
+    // Tokenize by tags <b>, </b>, <i>, </i>, <a href="…">, </a>, and <br>
+    const tagRegex = /(<\/?b>|<\/?i>|<a\s+href=\"[^\"]*\">|<\/a>|<br\s*\/?\s*>)/g;
+    const tokens = input.split(tagRegex).filter(Boolean);
+
+    type Node =
+      | { type: 'text'; text: string }
+      | { type: 'b'; children: Node[] }
+      | { type: 'i'; children: Node[] }
+      | { type: 'a'; href: string; children: Node[] }
+      | { type: 'br' };
+
+    const root: { type: 'root'; children: Node[] } = { type: 'root', children: [] };
+    const stack: ({ type: 'root'; children: Node[] } | Node)[] = [root];
+
+    const pushChild = (node: Node) => {
+      const current = stack[stack.length - 1] as any;
+      (current.children as Node[]).push(node);
+    };
 
     const pushText = (txt: string) => {
       if (!txt) return;
-      const current = stack[stack.length - 1];
-      current.children!.push({ type: 'text', text: txt });
+      pushChild({ type: 'text', text: txt });
+    };
+
+    const isSafeHref = (href: string) => {
+      try {
+        const base = 'https://example.com';
+        const u = new URL(href, base);
+        const scheme = u.protocol.replace(':', '');
+        return scheme === 'http' || scheme === 'https' || href.startsWith('mailto:');
+      } catch {
+        return false;
+      }
     };
 
     for (const tok of tokens) {
       if (tok === '<b>') {
         const node: Node = { type: 'b', children: [] };
-        stack[stack.length - 1].children!.push(node);
+        pushChild(node);
         stack.push(node);
       } else if (tok === '</b>') {
-        if (stack.length > 1 && stack[stack.length - 1].type === 'b') stack.pop();
-        else pushText(tok); // Unbalanced, treat as text
+        const top = stack[stack.length - 1] as Node;
+        if (top && (top as any).type === 'b') stack.pop();
+        else pushText(tok);
       } else if (tok === '<i>') {
         const node: Node = { type: 'i', children: [] };
-        stack[stack.length - 1].children!.push(node);
+        pushChild(node);
         stack.push(node);
       } else if (tok === '</i>') {
-        if (stack.length > 1 && stack[stack.length - 1].type === 'i') stack.pop();
+        const top = stack[stack.length - 1] as Node;
+        if (top && (top as any).type === 'i') stack.pop();
         else pushText(tok);
+      } else if (tok.startsWith('<a ')) {
+        const m = tok.match(/<a\s+href=\"([^\"]*)\">/);
+        const href = m?.[1] ?? '';
+        if (!href || !isSafeHref(href)) {
+          // Treat as text if href missing/unsafe
+          pushText(tok);
+          continue;
+        }
+        const node: Node = { type: 'a', href, children: [] };
+        pushChild(node);
+        stack.push(node);
+      } else if (tok === '</a>') {
+        const top = stack[stack.length - 1] as Node;
+        if (top && (top as any).type === 'a') stack.pop();
+        else pushText(tok);
+      } else if (/^<br\s*\/?\s*>$/.test(tok)) {
+        // Line break
+        pushChild({ type: 'br' });
       } else {
+        // Plain text
         pushText(tok);
       }
     }
@@ -162,18 +216,34 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Convert to React nodes
     let keyCounter = 0;
     const toReact = (node: Node): React.ReactNode => {
-      if (node.type === 'text') {
-        if (node.text !== undefined) return node.text;
-        return node.children!.map((c) => toReact(c));
+      switch (node.type) {
+        case 'text':
+          return node.text;
+        case 'b':
+          return React.createElement('strong', { key: keyCounter++ }, node.children.map(toReact));
+        case 'i':
+          return React.createElement('em', { key: keyCounter++ }, node.children.map(toReact));
+        case 'a':
+          return React.createElement(
+            'a',
+            {
+              key: keyCounter++,
+              href: node.href,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            },
+            node.children.map(toReact)
+          );
+        case 'br':
+          return React.createElement('br', { key: keyCounter++ });
       }
-      const children = node.children!.map((c) => toReact(c));
-      if (node.type === 'b') return React.createElement('strong', { key: keyCounter++ }, children);
-      if (node.type === 'i') return React.createElement('em', { key: keyCounter++ }, children);
-      return children;
     };
 
-    // Wrap in a fragment to avoid extra DOM when multiple top-level nodes
-    return React.createElement(React.Fragment, null, ...(root.children || []).map((c) => toReact(c)));
+    return React.createElement(
+      React.Fragment,
+      null,
+      ...root.children.map((c) => toReact(c))
+    );
   }
 
   const t = useMemo(() => {
