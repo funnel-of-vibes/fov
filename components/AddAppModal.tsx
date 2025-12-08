@@ -11,7 +11,6 @@ interface AddAppModalProps {
 
 const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => {
   const [name, setName] = useState('');
-  const [link, setLink] = useState('');
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [zipFile, setZipFile] = useState<File | null>(null);
@@ -30,7 +29,8 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
       const newApp: AppEntry = {
         id: crypto.randomUUID(),
         name,
-        link,
+        // No app link is collected at submission; set to a safe placeholder
+        link: '#',
         author: author || 'Anonymous',
         likes: Math.floor(Math.random() * 50) + 1,
         vibeScore: vibeResult.vibeScore,
@@ -54,7 +54,6 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
 
   const handleClose = () => {
     setName('');
-    setLink('');
     setAuthor('');
     setDescription('');
     setZipFile(null);
@@ -83,18 +82,6 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
           </div>
 
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">App Link</label>
-            <input
-              required
-              type="url"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-              placeholder="https://..."
-            />
-          </div>
-
-          <div>
             <label className="block mb-1 text-sm font-medium text-gray-700">Author</label>
             <input
               type="text"
@@ -108,7 +95,6 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-700">Description</label>
             <textarea
-              required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
@@ -122,6 +108,7 @@ const AddAppModal: React.FC<AddAppModalProps> = ({ isOpen, onClose, onAdd }) => 
             <input
               type="file"
               accept=".zip"
+              required
               onChange={(e) => setZipFile(e.target.files ? e.target.files[0] : null)}
               className="block w-full text-sm text-gray-500
                 file:mr-4 file:py-2 file:px-4
