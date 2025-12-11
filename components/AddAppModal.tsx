@@ -137,6 +137,12 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
         setAuthor('');
         setDescription('');
         setZipFile(null);
+        // Clear any status from a previous submit so the below-form section disappears
+        setAvailableUrl(null);
+        setWaitingMessage(null);
+        setUploadError(null);
+        setElapsedSec(0);
+        setIsAnalyzing(false);
         onClose();
     };
 
