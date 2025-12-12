@@ -51,6 +51,7 @@ const translations: Record<Lang, Dict> = {
     'funnel.building': 'Building',
     'funnel.scaling': 'Scaling',
     'header.language': 'Language',
+    'vibeTools.title': 'Vibe Tools',
   },
   ro: {
     'app.title': 'Funnel of Vibes',
@@ -98,6 +99,7 @@ const translations: Record<Lang, Dict> = {
     'funnel.building': 'Construire',
     'funnel.scaling': 'Scalare',
     'header.language': 'Limbă',
+    'vibeTools.title': 'Vibe Tools',
   },
 };
 

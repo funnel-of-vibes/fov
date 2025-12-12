@@ -82,7 +82,7 @@ const SignIn: React.FC = () => {
         {/* Support container extracted to global SupportHeader */}
         <div className="grid grid-cols-1 gap-6 items-stretch">
           {/* Info / Marketing Panel */}
-          <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
+          <div id="concept" className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
             <div className="absolute inset-0 pointer-events-none" aria-hidden>
               <div className="absolute -top-20 -left-16 h-56 w-56 rounded-full bg-fuchsia-300/30 blur-3xl"></div>
               <div className="absolute -bottom-16 -right-10 h-56 w-56 rounded-full bg-sky-300/30 blur-3xl"></div>
@@ -140,11 +140,77 @@ const SignIn: React.FC = () => {
               </div>
             </div>
           </div>
-
+          
           {/* signInCard removed */}
 
+          {/* Vibe Tools - inserted between concept and examples */}
+          <div id="vibeTools" className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
+            <div className="relative">
+              <h2 className="text-xl font-bold text-slate-900">{t('vibeTools.title')}</h2>
+              <p className="mt-1 text-slate-600 text-sm">Useful tools to build your vibes</p>
+              <ul className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <li>
+                  <a
+                    href="https://aistudio.google.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  >
+                    <span>AI Studio</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                      <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://lovable.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  >
+                    <span>Lovable</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                      <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://lovable.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  >
+                    <span>Replit</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                      <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://bolt.new/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  >
+                    <span>Bolt</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                      <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           {/* Examples of Vibe Apps - now 3rd section */}
-          <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
+          <div id="examples" className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
             <div className="relative">
               <h2 className="text-xl font-bold text-slate-900">{t('signin.examples.title')}</h2>
               <p className="mt-1 text-slate-600 text-sm">{t('signin.examples.subtitle')}</p>
