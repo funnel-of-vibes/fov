@@ -147,7 +147,6 @@ const SignIn: React.FC = () => {
           <div id="vibeTools" className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/60 backdrop-blur shadow-md p-6 sm:p-8">
             <div className="relative">
               <h2 className="text-xl font-bold text-slate-900">{t('vibeTools.title')}</h2>
-              <p className="mt-1 text-slate-600 text-sm">Useful tools to build your vibes</p>
               <ul className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <li>
                   <a
@@ -164,46 +163,43 @@ const SignIn: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://lovable.dev/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  <span
+                    title="Work in progress ..."
+                    aria-disabled
+                    className="inline-flex items-center gap-2 text-slate-400 cursor-not-allowed pointer-events-none font-medium"
                   >
                     <span>Lovable</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                       <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                       <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
                     </svg>
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a
-                    href="https://lovable.dev/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  <span
+                    title="Work in progress ..."
+                    aria-disabled
+                    className="inline-flex items-center gap-2 text-slate-400 cursor-not-allowed pointer-events-none font-medium"
                   >
                     <span>Replit</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                       <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                       <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
                     </svg>
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a
-                    href="https://bolt.new/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-fuchsia-700 hover:text-fuchsia-900 font-medium"
+                  <span
+                    title="Work in progress ..."
+                    aria-disabled
+                    className="inline-flex items-center gap-2 text-slate-400 cursor-not-allowed pointer-events-none font-medium"
                   >
                     <span>Bolt</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                       <path d="M11 3a1 1 0 100 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                       <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
                     </svg>
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
