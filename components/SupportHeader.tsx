@@ -56,6 +56,17 @@ const SupportHeader: React.FC = () => {
     try { window.dispatchEvent(new Event('google:logout')); } catch {}
   };
 
+  const goToConcept = () => {
+    // Force SignIn screen
+    handleHeaderSignOut();
+  };
+
+  const goToVibesRanking = () => {
+    // Force App screen (anonymous auth is enough)
+    try { localStorage.setItem('auth.anonymous', 'true'); } catch {}
+    try { window.dispatchEvent(new Event('google:login_success')); } catch {}
+  };
+
   const handleHeaderSubmit = () => {
     try { window.dispatchEvent(new Event('open:add_app_modal')); } catch {}
   };
@@ -65,19 +76,46 @@ const SupportHeader: React.FC = () => {
       <div className="mx-auto max-w-6xl px-4 py-3">
         <div className="flex items-center justify-end">
           <div id="support_container" className="flex items-center gap-2">
+            {/* Concept button - always visible, sends user to SignIn screen */}
             <button
-              onClick={handleHeaderSignOut}
+              id="btnConcept"
+              onClick={goToConcept}
+              aria-pressed={!isAuthed}
               className={[
                 'relative px-3 py-2 font-medium rounded-full transition-all duration-200',
                 'focus:outline-none focus:ring-2 focus:ring-offset-2',
-                'text-slate-600 bg-white/80 border border-slate-200 hover:bg-white shadow-sm hover:shadow',
-                'text-sm'
+                'text-sm',
+                // Default visual
+                'bg-white/80 border shadow-sm hover:bg-white hover:shadow',
+                // Selected vs not selected styles
+                !isAuthed
+                  ? 'text-sky-700 border-sky-300 ring-sky-300 bg-sky-50'
+                  : 'text-slate-600 border-slate-200'
               ].join(' ')}
               title={t('header.signout')}
             >
               {t('header.signout')}
             </button>
+            {/* Vibes Ranking button - always visible, sends user to App screen */}
             <button
+              id="btnVibesRanking"
+              onClick={goToVibesRanking}
+              aria-pressed={isAuthed}
+              className={[
+                'relative px-3 py-2 font-medium rounded-full transition-all duration-200',
+                'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                'text-sm',
+                'bg-white/80 border shadow-sm hover:bg-white hover:shadow',
+                isAuthed
+                  ? 'text-sky-700 border-sky-300 ring-sky-300 bg-sky-50'
+                  : 'text-slate-600 border-slate-200'
+              ].join(' ')}
+              title={t('header.votedVibes')}
+            >
+              {t('header.votedVibes')}
+            </button>
+            <button
+              id="submitVibe"
               onClick={handleHeaderSubmit}
               className={
                 [
