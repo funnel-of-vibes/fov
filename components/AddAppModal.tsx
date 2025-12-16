@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {createPortal} from 'react-dom';
 import {AppEntry} from '../types';
 import {processVibeCheck} from '../services/vibeCheckService';
+import { useI18n } from '../services/i18n';
 
 interface AddAppModalProps {
     isOpen: boolean;
@@ -10,6 +11,7 @@ interface AddAppModalProps {
 }
 
 const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
+    const { t } = useI18n();
     const MAX_ZIP_BYTES = 300 * 1024; // 300 KB
     const [name, setName] = useState('');
     const [author, setAuthor] = useState('');
@@ -66,7 +68,7 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                 name,
                 // No app link is collected at submission; set to a safe placeholder
                 link: '#',
-                author: author || 'Anonymous',
+                author: author || t('addModal.author.anonymous'),
                 likes: Math.floor(Math.random() * 50) + 1,
                 vibeScore: vibeResult.vibeScore,
                 description: vibeResult.shortDescription,
@@ -74,9 +76,9 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                 stage: 'vibe' // Default stage for new apps
             };
 
-            if (!zipFile) throw new Error('No zip file selected');
+            if (!zipFile) throw new Error(t('addModal.error.noZip'));
             if (zipFile.size > MAX_ZIP_BYTES) {
-                throw new Error(`Zip file is too large. Maximum allowed is 300 KB.`);
+                throw new Error(t('addModal.error.tooLarge'));
             }
 
             // 1) Get the presigned URL and key from your endpoint
@@ -86,7 +88,8 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
 
             const resp = await fetch(apiUrl);
             if (!resp.ok) {
-                throw new Error(`Failed to get signed URL (${resp.status})`);
+                console.error('Failed to get signed URL', resp.status);
+                throw new Error(t('addModal.error.signedUrl'));
             }
             const {url, key}: { url: string; key: string } = await resp.json();
 
@@ -103,14 +106,15 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
             if (!putRes.ok) {
                 // Attempt to read any error text for debugging
                 const errText = await putRes.text().catch(() => '');
-                throw new Error(`Upload failed (${putRes.status}): ${errText}`);
+                console.error('Upload failed', putRes.status, errText);
+                throw new Error(t('addModal.error.uploadFailed'));
             }
             console.log('Upload complete');
 
             // 3) After successful upload, poll the S3 website endpoint until it returns 200
             const s3DeployedVibeUrl = `http://${vibedApp}.agenticus.eu.s3-website.eu-north-1.amazonaws.com/`;
             const waitingUrl = `https://hqyvtkj6j6.execute-api.eu-north-1.amazonaws.com/Stage/wait-for-site-ready?vibed_app=${vibedApp}`;
-            setWaitingMessage('Deploying vibe to AWS ...');
+            setWaitingMessage(t('addModal.deploying'));
             setElapsedSec(0);
             let ticker: ReturnType<typeof setInterval> | null = null;
             try {
@@ -121,14 +125,14 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                     setAvailableUrl(s3DeployedVibeUrl);
                     setWaitingMessage(null);
                 } else {
-                    setUploadError('Deployed site is not reachable yet. Please try opening it again in a little while.');
+                    setUploadError(t('addModal.error.siteNotReady'));
                 }
             } finally {
                 if (ticker) clearInterval(ticker);
             }
         } catch (err) {
             console.error("Failed to add app", err);
-            setUploadError(err instanceof Error ? err.message : 'Upload failed');
+            setUploadError(err instanceof Error ? err.message : t('addModal.error.uploadFailed'));
         } finally {
             setIsAnalyzing(false);
             setWaitingMessage(null);
@@ -155,12 +159,12 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
         <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm">
             <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-2xl">
                 <h2 className="mb-6 text-xl font-bold text-gray-900">
-                    Submit Vibe Code
+                    {t('addModal.title')}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4" aria-busy={isAnalyzing}>
                     <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">App Name</label>
+                        <label className="block mb-1 text-sm font-medium text-gray-700">{t('addModal.appName')}</label>
                         <input
                             required
                             type="text"
@@ -171,39 +175,39 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                                 setName(sanitized);
                             }}
                             pattern="^[a-z0-9]+$"
-                            title="Only lowercase letters and numbers are allowed."
+                            title={t('addModal.appName.rule')}
                             className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                            placeholder="e.g. myawesomeapp"
+                            placeholder={t('addModal.appName.placeholder')}
                             disabled={isAnalyzing}
                         />
                     </div>
 
                     <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Author</label>
+                        <label className="block mb-1 text-sm font-medium text-gray-700">{t('addModal.author')}</label>
                         <input
                             type="text"
                             value={author}
                             onChange={(e) => setAuthor(e.target.value)}
                             disabled={isAnalyzing}
                             className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                            placeholder="Optional"
+                            placeholder={t('addModal.optional')}
                         />
                     </div>
 
                     <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Description</label>
+                        <label className="block mb-1 text-sm font-medium text-gray-700">{t('addModal.description')}</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             disabled={isAnalyzing}
                             className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                             rows={3}
-                            placeholder="Optional"
+                            placeholder={t('addModal.optional')}
                         />
                     </div>
 
                     <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Source Code (Zip)</label>
+                        <label className="block mb-1 text-sm font-medium text-gray-700">{t('addModal.sourceZip')}</label>
                         <input
                             type="file"
                             accept=".zip"
@@ -212,7 +216,7 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                                 const file = e.target.files ? e.target.files[0] : null;
                                 if (file && file.size > MAX_ZIP_BYTES) {
                                     // Too large — show error and reset selection
-                                    setUploadError('Zip file is too large. Maximum allowed is 300 KB.');
+                                    setUploadError(t('addModal.error.tooLarge'));
                                     setZipFile(null);
                                     // Reset the input value so user can re-select
                                     e.target.value = '';
@@ -230,8 +234,8 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                 hover:file:bg-blue-100
               "
                         />
-                        <p className="mt-1 text-xs text-gray-500">Max size: 300 KB</p>
-                        {zipFile && <p className="mt-1 text-xs text-green-600">Selected: {zipFile.name}</p>}
+                        <p className="mt-1 text-xs text-gray-500">{t('addModal.maxSize')}</p>
+                        {zipFile && <p className="mt-1 text-xs text-green-600">{t('addModal.selected')} {zipFile.name}</p>}
                     </div>
 
                     <div className="flex justify-end pt-4 gap-3">
@@ -246,7 +250,7 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                             ].join(' ')}
                             disabled={isAnalyzing}
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -266,10 +270,10 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                     <path className="opacity-75" fill="currentColor"
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Processing...
+                  {t('common.processing')}
                 </span>
                             ) : (
-                                'Submit App'
+                                t('addModal.submit')
                             )}
                         </button>
                     </div>
@@ -277,14 +281,14 @@ const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
                 {availableUrl && (
                     <div
                         className="mt-4 p-3 rounded-md border border-emerald-200 bg-emerald-50 text-sm text-emerald-800">
-                        <div className="font-medium mb-1">Your deployment is ready.</div>
+                        <div className="font-medium mb-1">{t('addModal.ready')}</div>
                         <a
                             href={availableUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-900 underline"
                         >
-                            Open deployed app
+                            {t('addModal.openDeployed')}
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                  className="w-4 h-4">
                                 <path

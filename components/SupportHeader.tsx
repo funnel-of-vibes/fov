@@ -99,9 +99,9 @@ const SupportHeader: React.FC = () => {
                   ? 'text-sky-700 border-sky-300 ring-sky-300 bg-sky-50'
                   : 'text-slate-600 border-slate-200'
               ].join(' ')}
-              title={isAuthed ? 'To Concept' : 'To Vibes List'}
+              title={isAuthed ? t('header.toggler.concept') : t('header.toggler.votedVibes')}
             >
-              {isAuthed ? 'To Concept' : 'To Vibes List'}
+              {isAuthed ? t('header.toggler.concept') : t('header.toggler.votedVibes')}
             </button>
             <button
               id="submitVibe"
