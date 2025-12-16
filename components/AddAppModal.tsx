@@ -12,7 +12,7 @@ interface AddAppModalProps {
 
 const AddAppModal: React.FC<AddAppModalProps> = ({isOpen, onClose, onAdd}) => {
     const { t } = useI18n();
-    const MAX_ZIP_BYTES = 300 * 1024; // 300 KB
+    const MAX_ZIP_BYTES = 1024 * 1024; // 1 MB
     const [name, setName] = useState('');
     const [author, setAuthor] = useState('');
     const [description, setDescription] = useState('');
