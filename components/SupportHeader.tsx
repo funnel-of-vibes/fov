@@ -103,6 +103,22 @@ const SupportHeader: React.FC = () => {
             >
               {isAuthed ? t('header.toggler.concept') : t('header.toggler.votedVibes')}
             </button>
+            {/* Publish from Github button (no functionality yet) */}
+            <button
+              id="publishGithub"
+              type="button"
+              className={
+                [
+                  'relative px-4 py-2 font-medium rounded-full transition-all duration-200',
+                  'focus:outline-none focus:ring-2 focus:ring-offset-2',
+                  'disabled:opacity-50 disabled:cursor-not-allowed',
+                  'text-white bg-gradient-to-r from-fuchsia-500 to-sky-500 shadow-md hover:shadow-lg focus:ring-fuchsia-400',
+                  'text-sm'
+                ].join(' ')
+              }
+            >
+              {t('header.publishGithub')}
+            </button>
             <button
               id="submitVibe"
               onClick={handleHeaderSubmit}
