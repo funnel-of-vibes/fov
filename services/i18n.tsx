@@ -73,7 +73,7 @@ const translations: Record<Lang, Dict> = {
         'addModal.ready': 'Your deployment is ready.',
         'addModal.openDeployed': 'Open deployed app',
         'addModal.deploying': 'Deploying vibe to AWS ...',
-        'addModal.error.noZip': 'No zip file selectedS',
+        'addModal.error.noZip': 'No zip file selected',
         'addModal.error.tooLarge': 'Zip file is too large. Maximum allowed is 1 MB.',
         'addModal.error.signedUrl': 'Failed to get upload URL. Please try again later.',
         'addModal.error.uploadFailed': 'Upload failed',
